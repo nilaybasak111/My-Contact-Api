@@ -64,32 +64,17 @@ const updateContact = asyncHandler ( async (req,res) => {
 // @desc Delete Contact
 // @route DELETE /api/contacts/:id
 // @access public
-// const deleteContact = asyncHandler ( async (req,res) => {
-//     const contact = await Contact.findById(req.params.id);
-//     console.log(contact);
-//     if(!contact){
-//         //console.log("before error")
-//         res.status(404);
-//         throw new Error("Please Enter Correct ID");
-//     }
-//     await Contact.remove();
-//     res.status(200).json(contact)//json({message : `Delete Contact for ${req.params.id} :`,contact});
-// })
-
-const deleteContact = asyncHandler(async (req, res) => {
+const deleteContact = asyncHandler ( async (req,res) => {
     const contact = await Contact.findById(req.params.id);
-    
     console.log(contact);
-
-    if (!contact) {
+    if(!contact){
+        //console.log("before error")
         res.status(404);
         throw new Error("Please Enter Correct ID");
     }
-
-    await contact.remove();
-
-    res.status(200).json({ message: `Contact with ID ${req.params.id} deleted`, contact });
-});
+    await Contact.remove();
+    res.status(200).json(contact)//json({message : `Delete Contact for ${req.params.id} :`,contact});
+})
 
 module.exports = { 
     getContacts,
