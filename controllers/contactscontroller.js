@@ -16,8 +16,7 @@ const getContacts = asyncHandler ( async (req,res) => {
 const getContact = asyncHandler ( async (req,res) => {
     const contact = await Contact.findById(req.params.id);
     if(!contact){
-        res.status(404);
-        throw new Error ("Please Enter Correct ID"); // error part is not working 50:00
+        res.status(404).json({ message : "No Contact Found"})
     }
     res.status(200).json({message : `Get Contact for ${req.params.id} :`,contact});
 });
@@ -31,7 +30,6 @@ const createContact = asyncHandler ( async (req,res) => {
         res.status(400).json({
             message: "Fill the all Inputs, All inputs are Mandatory"
         })
-        throw new Error ("All Fields are Mandatory") 
     }
     const contact = await Contact.create({
         name,
@@ -49,9 +47,10 @@ const updateContact = asyncHandler ( async (req,res) => {
     console.log("before contact put")
     const contact = await Contact.findById(req.params.id);
     if(!contact){
-        //console.log("before error")
-        res.status(404);
-        throw new Error("Please Enter Correct ID");
+        console.log("before status")
+        res.status(404).json({message: "kkkk"});
+        //console.log("before err")
+        //throw new Error("Please Enter Correct ID");
     }
     const updatedContact = await Contact.findByIdAndUpdate(
         req.params.id,
@@ -65,15 +64,14 @@ const updateContact = asyncHandler ( async (req,res) => {
 // @route DELETE /api/contacts/:id
 // @access public
 const deleteContact = asyncHandler ( async (req,res) => {
-    const contact = await Contact.findById(req.params.id);
+    const contact = await Contact.findByIdAndDelete(req.params.id);
     console.log(contact);
     if(!contact){
-        //console.log("before error")
-        res.status(404);
-        throw new Error("Please Enter Correct ID");
+        res.status(404).json({message : "error"});
+        //throw new Error("Please Enter Correct ID");
     }
-    await Contact.remove();
-    res.status(200).json(contact)//json({message : `Delete Contact for ${req.params.id} :`,contact});
+    //await Contact.remove();
+    res.status(200).json({message : `Delete Contact for ${req.params.id} :`,contact});
 })
 
 module.exports = { 
