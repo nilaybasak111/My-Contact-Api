@@ -9,6 +9,7 @@ const port = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use('/api/contacts', require("./routes/ContactRoutes.js"));
+app.use('/api/users', require("./routes/UsersRoutes.js"));
 app.use( errorHandler );
 
 app.listen(port, ()=> {
