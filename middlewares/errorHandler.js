@@ -2,10 +2,12 @@ const { constants } = require ("../constants")
 
 const errorHandler = (err, req, res, next) => {
     const statusCode = res.statusCode ? res.statusCode : 500;
+    console.log(statusCode);
     res.json({message : err.message, stackTrace : err.stack})
-    
+    // May be there is a problem in switch case
     switch(statusCode) {
         case constants.VATIDATION_ERROR :
+            console.log(statusCode);
             res.json({ title : "Validation Failed", message : err.message });
             break;
 

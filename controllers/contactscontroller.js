@@ -68,8 +68,8 @@ const deleteContact = asyncHandler ( async (req,res) => {
     const contact = await Contact.findByIdAndDelete(req.params.id);
     console.log(contact);
     if(!contact){
-        res.status(404).json({message : "error"});
-        //throw new Error ("Please Enter Correct ID");
+        res.status(404);//.json({message : "error"});
+        throw new Error ("Please Enter Correct ID");
     }
     //await Contact.remove();
     res.status(200).json({message : `Delete Contact for ${req.params.id} :`,contact});
