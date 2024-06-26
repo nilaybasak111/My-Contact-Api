@@ -1,5 +1,7 @@
 const { Timestamp } = require("mongodb");
 const mongoose = require ("mongoose");
+
+// Here we define the Users Schema
 const UsersSchema = mongoose.Schema (
     {
         username : {

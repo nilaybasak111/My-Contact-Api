@@ -1,6 +1,6 @@
 const asyncHandler = require ("express-async-handler");
 const Contact = require ("../models/contactsModel.js");
-const { Error } = require("mongoose");
+
 
 // @desc Get all Contacts
 // @route GET /api/contacts
@@ -69,7 +69,7 @@ const deleteContact = asyncHandler ( async (req,res) => {
     console.log(contact);
     if(!contact){
         res.status(404).json({message : "error"});
-        //throw new Error("Please Enter Correct ID");
+        //throw new Error ("Please Enter Correct ID");
     }
     //await Contact.remove();
     res.status(200).json({message : `Delete Contact for ${req.params.id} :`,contact});
