@@ -1,4 +1,4 @@
-const constance = {
+const constants = {
     VATIDATION_ERROR : 400,
     UNAUTHORIZED : 401,
     FORBIDDEN : 403,
@@ -6,4 +6,4 @@ const constance = {
     SERVER_ERROR : 500
 }
 
-module.exports = constance;
+module.exports = constants;
