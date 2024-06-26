@@ -1,6 +1,5 @@
 const { Timestamp } = require("mongodb");
 const mongoose = require ("mongoose");
-const { string, array } = require("zod");
 
 // Here we define the Schema
 const contactSchema = mongoose.Schema (

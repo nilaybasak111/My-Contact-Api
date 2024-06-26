@@ -2,7 +2,7 @@ const { constance } = require ("../constance.js")
 
 const errorHandler = (err, req, res, next) => {
     const statusCode = res.statusCode ? res.statusCode : 500;
-    res.json({message : err.message, stackTrace : err.stack})
+    res.json({message : err.message})
     switch(statusCode) {
         case constance.VATIDATION_ERROR :
             res.json({ title : "Validation Failed", message : err.message });
