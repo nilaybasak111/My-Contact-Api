@@ -4,6 +4,11 @@ const mongoose = require ("mongoose");
 // Here we define the Users Schema
 const UsersSchema = mongoose.Schema (
     {
+        user_id : {
+            type : mongoose.Schema.Types.ObjectId,
+            require : true,
+            ref : "User",
+        },
         username : {
             type: String,
             require : [true, "Please Add the Username"],

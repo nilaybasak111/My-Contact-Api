@@ -54,18 +54,29 @@ const loginUser = asyncHandler ( async (req, res) => {
     // Here We Compare Password using hashedPassword
     if (user && (await bcrypt.compare(password, user.password))) {
         const accessToken = jwt.sign({
-            "email" : 
-        })
-        res.status(200).json({ accessToken });
+            user : {
+                username : user.username,
+                email : user.email,
+                id : user.id,
+            },  
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn : "15m" }
+    );
+    res.status(200).json({ accessToken });
+    } else {
+        res.status(401);
+        throw new Error ("Please Check Email and Password")
     }
-    res.status(200).json({ message : "Log-in User"});
+    //res.status(200).json({ message : "Log-in User"});
 })
 
 // @desc Current User Info
 // @route GET /api/users/current
 // @access private
 const currentUser = asyncHandler ( async (req, res) => {
-    res.json({ message : "Current User Info Page"});
+    const user = 
+    res.json( req.user );
 })
 
 module.exports = {
