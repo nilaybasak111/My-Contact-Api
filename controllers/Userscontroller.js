@@ -10,19 +10,19 @@ const registerUser = asyncHandler ( async (req, res) => {
         res.status(400);
         throw new Error ("All Fields are Mandatory")
     }
-    const userAvailable = await User.findone({ email });
-        if (!email){
-            klkkk
+    const userAvailable = await User.findOne({ email });
+        if (!userAvailable){
+            res.status(400);
+            throw new Error ("User Already Registered")
         }
-    res.json({ message : "Please, Register the User"});
+        
+        res.json({ message : "Please, Register the User"});
 })
 
 // @desc Log-in User
 // @route POST /api/users/login
 // @access public
 const loginUser = asyncHandler ( async (req, res) => {
-    
-    
     res.status(200).json({ message : "Log-in User"});
 })
 
