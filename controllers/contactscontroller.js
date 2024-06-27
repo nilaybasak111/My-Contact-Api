@@ -8,7 +8,7 @@ const Contact = require ("../models/contactsModel.js");
 const getContacts = asyncHandler ( async (req,res) => {
     const contacts = await Contact.find({ user_id : req.user.id});
     //res.send("");
-    res.status(200).json({ message : "Got all Contacts", contacts})
+    res.status(200).json({ message : "Got all Contacts", contacts});
 })
 
 // @desc Get Contact
@@ -54,6 +54,12 @@ const updateContact = asyncHandler ( async (req,res) => {
         //console.log("before err")
         //throw new Error ("Please Enter Correct ID");
     }
+    
+    if(contact.user_id.toString() !== req.user.id) {
+        res.send(403);
+        throw new Error ("User Don't have Access to Update Other User Contact");
+    }
+    
     const updatedContact = await Contact.findByIdAndUpdate(
         req.params.id,
         req.body,
@@ -66,13 +72,17 @@ const updateContact = asyncHandler ( async (req,res) => {
 // @route DELETE /api/contacts/:id
 // @access private
 const deleteContact = asyncHandler ( async (req,res) => {
-    const contact = await Contact.findByIdAndDelete(req.params.id);
+    const contact = await Contact.findById(req.params.id);
     console.log(contact);
     if(!contact){
         res.status(404);//.json({message : "error"});
         throw new Error ("Please Enter Correct ID");
     }
-    //await Contact.remove();
+    if(contact.user_id.toString() !== req.user.id) {
+        res.send(403);
+        throw new Error ("User Don't have Access to Update Other User Contact");
+    }
+    await Contact.deleteOne({ _id : req.params.id });
     res.status(200).json({message : `Delete Contact for ${req.params.id} :`,contact});
 })
 
