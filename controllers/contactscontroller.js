@@ -76,7 +76,7 @@ const deleteContact = asyncHandler ( async (req,res) => {
     console.log(contact);
     if(!contact){
         res.status(404);//.json({message : "error"});
-        throw new Error ("Please Enter Correct ID");
+        //throw new Error ("Please Enter Correct ID");
     }
     if(contact.user_id.toString() !== req.user.id) {
         res.send(403);
